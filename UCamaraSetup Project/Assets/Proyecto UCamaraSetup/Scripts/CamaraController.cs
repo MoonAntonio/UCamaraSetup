@@ -41,11 +41,41 @@ namespace MoonAntonio
 		public bool isAutorotacion = false;													// Determina si tendra autorotacion
 		#endregion
 
-		#region Variables Autorotacion
+		#region Variables Publicas Autorotacion
 		/// <summary>
 		/// <para>Velocidad de rotacion de la camara.</para>
 		/// </summary>
-		public float velAutorotacion = 3f;													// Velocidad de rotacion de la camara
+		public float velAutorotacion = 3f;                                                  // Velocidad de rotacion de la camara
+		#endregion
+
+		#region Variables Publicas Horizontal
+		/// <summary>
+		/// <para>Velocidad de rotacion horizontal.</para>
+		/// </summary>
+		public float velRotacionHori = 0.0f;												// Velocidad de rotacion horizontal
+		/// <summary>
+		/// <para>Velocidad de la deseleracion horizontal.</para>
+		/// </summary>
+		public float velLerpHori = 0.0f;													// Velocidad de la deseleracion horizontal
+		#endregion
+
+		#region Variables Privadas Horizontal
+		/// <summary>
+		/// <para>Velocidad que mantiene la rotacion horizontal actual.</para>
+		/// </summary>
+		private float velocidadHorizontal = 0.0f;                                           // Velocidad que mantiene la rotacion horizontal actual
+		/// <summary>
+		/// <para>Temporizador para comprobar si el toque es una rotacion valida.</para>
+		/// </summary>
+		private float tempoHorizontal = 0.0f;												// Temporizador para comprobar si el toque es una rotacion valida
+		/// <summary>
+		/// <para>Contiene la info del axi x del mouse.</para>
+		/// </summary>
+		private float xAxiHori = 0.0f;														// Contiene la info del axi x del mouse
+		/// <summary>
+		/// <para>Contiene la info del ultimo touch.</para>
+		/// </summary>
+		private int ultimoTouchHori = 0;													// Contiene la info del ultimo touch
 		#endregion
 
 		#region Actualizadores

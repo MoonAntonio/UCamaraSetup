@@ -64,7 +64,46 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>El nombre del axis custom para horizontal.</para>
 		/// </summary>
-		public string customAxisMouse = string.Empty;										// El nombre del axis custom para horizontal
+		public string customAxisMouse = string.Empty;                                       // El nombre del axis custom para horizontal
+		#endregion
+
+		#region Variables Publicas Vertical
+		/// <summary>
+		/// <para>Limite superior de la posicion de la camara.</para>
+		/// </summary>
+		public float limiteSuperior = 0.0f;													// Limite superior de la posicion de la camara
+		/// <summary>
+		/// <para>Limite inferior de la posicion de la camara.</para>
+		/// </summary>
+		public float limiteInferior = 0.0f;													// Limite inferior de la posicion de la camara
+		/// <summary>
+		/// <para>Umbral superior de la camara.</para>
+		/// </summary>
+		public float umbralSuperior = 0.0f;													// Umbral superior de la camara
+		/// <summary>
+		/// <para>Umbral inferior de la camara.</para>
+		/// </summary>
+		public float umbralInferior = 0.0f;													// Umbral inferior de la camara
+		/// <summary>
+		/// <para>Velocidad de movimiento de la camara verticalmente.</para>
+		/// </summary>
+		public float velMovimientoVert = 0.0f;												// Velocidad de movimiento de la camara verticalmente
+		/// <summary>
+		/// <para>Velocidad de rotacion de la camara verticalmente.</para>
+		/// </summary>
+		public float velRotacionVert = 0.0f;												// Velocidad de rotacion de la camara verticalmente
+		/// <summary>
+		/// <para>Velocidad de la deseleracion vertical.</para>
+		/// </summary>
+		public float velLerpVert = 0.0f;                                                    // Velocidad de la deseleracion vertical
+		/// <summary>
+		/// <para>Angulo maximo de inclinacion vertical.</para>
+		/// </summary>
+		public float anguloMaximo = 30.0f;													// Angulo maximo de inclinacion vertical
+		/// <summary>
+		/// <para>Angulo minimo de inclinacion vertical.</para>
+		/// </summary>
+		public float anguloMinimo = -30.0f;													// Angulo minimo de inclinacion vertical
 		#endregion
 
 		#region Variables Privadas Horizontal
@@ -83,7 +122,57 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Contiene la info del ultimo touch.</para>
 		/// </summary>
-		private int ultimoTouchHori = 0;													// Contiene la info del ultimo touch
+		private int ultimoTouchHori = 0;                                                    // Contiene la info del ultimo touch
+		#endregion
+
+		#region Variables Privadas Vertical
+		/// <summary>
+		/// <para>Velocidad que mantiene la rotacion vertical actual.</para>
+		/// </summary>
+		private float velocidadVertical = 0.0f;												// Velocidad que mantiene la rotacion vertical actual
+		/// <summary>
+		/// <para>Temporizador para comprobar si el toque es una rotacion valida.</para>
+		/// </summary>
+		private float tempoVertical = 0.0f;													// Temporizador para comprobar si el toque es una rotacion valida
+		/// <summary>
+		/// <para>Contiene la info del axi y del mouse.</para>
+		/// </summary>
+		private float yAxiHori = 0.0f;                                                      // Contiene la info del axi y del mouse
+		/// <summary>
+		/// <para>Rotacion actual de Y.</para>
+		/// </summary>
+		private float rotacionYActual = 0.0f;												// Rotacion actual de Y
+		/// <summary>
+		/// <para>Quaternion original.</para>
+		/// </summary>
+		private Quaternion rotOriginal;														// Quaternion original
+		/// <summary>
+		/// <para>Rotacion X original.</para>
+		/// </summary>
+		private float rotX = 0.0f;															// Rotacion X original
+		/// <summary>
+		/// <para>Rotacion Y original.</para>
+		/// </summary>
+		private float rotY = 0.0f;															// Rotacion Y original
+		/// <summary>
+		/// <para>Contiene la info del ultimo touch.</para>
+		/// </summary>
+		private int ultimoTouchVert = 0;                                                    // Contiene la info del ultimo touch
+		#endregion
+
+		#region Inicializadores
+		/// <summary>
+		/// <para>Inicializador de <see cref="CamaraController"/>.</para>
+		/// </summary>
+		protected void Start()// Inicializador de CamaraController
+		{
+			#region Vertical
+			if (isVertical)
+			{
+				// Carga de datos iniciales
+			}
+			#endregion
+		}
 		#endregion
 
 		#region Actualizadores
@@ -145,6 +234,13 @@ namespace MoonAntonio
 					ultimoTouchHori = Input.touchCount;
 					velocidadHorizontal = 0;
 				}
+			}
+			#endregion
+
+			#region Vertical
+			if (isVertical)
+			{
+
 			}
 			#endregion
 		}

@@ -416,26 +416,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114512382023003426, guid: f1805334e8aaa4841b43c6c971bc2f91,
-        type: 2}
-      propertyPath: velRotacionHori
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512382023003426, guid: f1805334e8aaa4841b43c6c971bc2f91,
-        type: 2}
-      propertyPath: velLerpHori
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512382023003426, guid: f1805334e8aaa4841b43c6c971bc2f91,
-        type: 2}
-      propertyPath: isHorizontal
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512382023003426, guid: f1805334e8aaa4841b43c6c971bc2f91,
-        type: 2}
-      propertyPath: isAutorotacion
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1805334e8aaa4841b43c6c971bc2f91, type: 2}
   m_IsPrefabParent: 0

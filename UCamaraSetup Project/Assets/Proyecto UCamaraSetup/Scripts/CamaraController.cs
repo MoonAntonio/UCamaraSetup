@@ -137,7 +137,7 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Contiene la info del axi y del mouse.</para>
 		/// </summary>
-		private float yAxiHori = 0.0f;                                                      // Contiene la info del axi y del mouse
+		private float yAxiVert = 0.0f;                                                      // Contiene la info del axi y del mouse
 		/// <summary>
 		/// <para>Rotacion actual de Y.</para>
 		/// </summary>
@@ -242,11 +242,78 @@ namespace MoonAntonio
 			#region Vertical
 			if (isVertical)
 			{
+				if (Input.touchCount < 2 && ultimoTouchVert < 2)
+				{
+					if (Input.touchCount == 0) ultimoTouchVert = 0;
+					// Suma al temporizador cada vez que el usuario tiene el boton izquierdo del mouse/touch con un dedo en el dispositivo movil
+					if (Input.GetMouseButton(0)) tempoVertical++;
 
+					// Si el usuario retiene mas de 3 frames, registrar el eje x del mouse
+					if (Input.GetMouseButton(0) && tempoVertical > 3)
+					{
+						// Invertir el eje y recibido, para crear un movimiento de eje inverso
+						yAxiVert = -Input.GetAxis("Mouse Y");
+						velocidadVertical = yAxiVert;
+					}
+					else
+					{
+						// De lo contrario, el usuario ya no presiona el clic del mouse, comenzar a calcular la velocidad del lerp
+						var ix = Time.deltaTime * velLerpVert;
+						velocidadVertical = Mathf.Lerp(velocidadVertical, 0, ix);
+					}
+
+					// Resetear tempo
+					if (Input.GetMouseButtonUp(0))
+					{
+						tempoVertical = 0;
+					}
+
+					// Calcular el movimiento de la camara
+					float limitY = Mathf.Clamp(transform.position.y + (velocidadVertical * velMovimientoVert), limiteInferior, limiteSuperior);
+
+					transform.position = new Vector3(0,limitY,0);
+
+					// Si la camara todavia esta dentro del limite, girar la camara tambien
+					if (!(transform.position.y < umbralSuperior && transform.position.y > umbralInferior))
+					{
+						rotacionYActual += velocidadVertical * -velRotacionVert * 0.8f;
+						if (transform.position.y > umbralSuperior)
+						{
+							rotacionYActual = ClampAngulo(rotacionYActual, -anguloMaximo, 1F);
+						}
+						else if (transform.position.y < umbralInferior)
+						{
+							rotacionYActual = ClampAngulo(rotacionYActual, 1F, -anguloMinimo);
+						}
+						Quaternion yQuaternion = Quaternion.AngleAxis(rotacionYActual, Vector3.left);
+						transform.localRotation = rotOriginal * yQuaternion;
+					}
+				}
+				else
+				{
+					ultimoTouchVert = Input.touchCount;
+					velocidadVertical = 0;
+				}
 			}
 			#endregion
 		}
 		#endregion
 
+		#region Metodos
+		/// <summary>
+		/// <para>Interpola un angulo basandose en un minimo y maximo.</para>
+		/// </summary>
+		/// <param name="angulo">Angulo</param>
+		/// <param name="min">Minimo</param>
+		/// <param name="max">Maximo</param>
+		/// <returns></returns>
+		private float ClampAngulo(float angulo, float min, float max)// Interpola un angulo basandose en un minimo y maximo
+		{
+			if (angulo < -360) angulo += 360;
+			if (angulo > 360) angulo -= 360;
+
+			return Mathf.Clamp(angulo, min, max);
+		}
+		#endregion
 	}
 }

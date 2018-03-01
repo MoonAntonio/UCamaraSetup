@@ -185,15 +185,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHorizontal: 1
-  isVertical: 0
-  isGlobal: 0
-  isZoom: 0
+  isVertical: 1
+  isGlobal: 1
+  isZoom: 1
   isAutorotacion: 1
   velAutorotacion: 3
   velRotacionHori: 5
   velLerpHori: 2
   customAxisHorizontal: 0
   customAxisMouse: 
+  limiteSuperior: 100
+  limiteInferior: -10
+  umbralSuperior: 50
+  umbralInferior: 0
+  velMovimientoVert: 1
+  velRotacionVert: 1
+  velLerpVert: 1
+  anguloMaximo: 30
+  anguloMinimo: -30
 --- !u!124 &124540057915460774
 Behaviour:
   m_ObjectHideFlags: 1

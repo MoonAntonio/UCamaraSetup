@@ -169,7 +169,9 @@ namespace MoonAntonio
 			#region Vertical
 			if (isVertical)
 			{
-				// Carga de datos iniciales
+				rotOriginal = this.transform.localRotation;
+				rotX = this.transform.localEulerAngles.x;
+				rotY = this.transform.localEulerAngles.y;
 			}
 			#endregion
 		}

@@ -56,7 +56,15 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Velocidad de la deseleracion horizontal.</para>
 		/// </summary>
-		public float velLerpHori = 0.0f;													// Velocidad de la deseleracion horizontal
+		public float velLerpHori = 0.0f;                                                    // Velocidad de la deseleracion horizontal
+		/// <summary>
+		/// <para>Determina si se usara un axis del mouse diferente.</para>
+		/// </summary>
+		public bool customAxisHorizontal = false;											// Determina si se usara un axis del mouse diferente
+		/// <summary>
+		/// <para>El nombre del axis custom para horizontal.</para>
+		/// </summary>
+		public string customAxisMouse = string.Empty;										// El nombre del axis custom para horizontal
 		#endregion
 
 		#region Variables Privadas Horizontal
@@ -89,6 +97,54 @@ namespace MoonAntonio
 			{
 				// Gira el objeto si el usuario no esta haciendo clic o tocando la pantalla
 				if (!Input.GetMouseButton(0)) transform.Rotate(0.0f, velAutorotacion, 0.0f, Space.World);
+			}
+			#endregion
+
+			#region Horizontal
+			if (isHorizontal)
+			{
+				if (Input.touchCount < 2 && ultimoTouchHori < 2)
+				{
+					if (Input.touchCount == 0) ultimoTouchHori = 0;
+					// Suma al temporizador cada vez que el usuario tiene el boton izquierdo del mouse/touch con un dedo en el dispositivo movil
+					if (Input.GetMouseButton(0)) tempoHorizontal++;
+
+					// Si el usuario retiene mas de 3 frames, registrar el eje x del mouse
+					if (Input.GetMouseButton(0) && tempoHorizontal > 3)
+					{
+						tempoHorizontal++;
+						// Comprobar el tipo de axis
+						if (customAxisHorizontal)
+						{
+							xAxiHori = Input.GetAxis(customAxisMouse);
+						}
+						else
+						{
+							xAxiHori = Input.GetAxis("Mouse X");
+						}
+						
+						velocidadHorizontal = xAxiHori;
+					}
+					else
+					{
+						// De lo contrario, el usuario ya no presiona el clic del mouse, comenzar a calcular la velocidad del lerp
+						var i = Time.deltaTime * velLerpHori;
+						velocidadHorizontal = Mathf.Lerp(velocidadHorizontal, 0, i);
+					}
+
+					// Resetear tempo
+					if (Input.GetMouseButtonUp(0))
+					{
+						tempoHorizontal = 0;
+					}
+					// Rotar el objeto
+					transform.Rotate(0.0f, velocidadHorizontal * velRotacionHori, 0.0f, Space.World);
+				}
+				else
+				{
+					ultimoTouchHori = Input.touchCount;
+					velocidadHorizontal = 0;
+				}
 			}
 			#endregion
 		}

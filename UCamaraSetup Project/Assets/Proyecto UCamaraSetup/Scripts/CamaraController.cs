@@ -103,7 +103,26 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Angulo minimo de inclinacion vertical.</para>
 		/// </summary>
-		public float anguloMinimo = -30.0f;													// Angulo minimo de inclinacion vertical
+		public float anguloMinimo = -30.0f;                                                 // Angulo minimo de inclinacion vertical
+		#endregion
+
+		#region Variables Publicas Zoom
+		/// <summary>
+		/// <para>Velocidad de zoom.</para>
+		/// </summary>
+		public int velZoom = 3;																// Velocidad de zoom
+		/// <summary>
+		/// <para>Maxima distancia del zoom.</para>
+		/// </summary>
+		public int maxDistanciaZoom = 40;													// Maxima distancia del zoom
+		/// <summary>
+		/// <para>Minima distancia zoom.</para>
+		/// </summary>
+		public int minDistanciaZoom = 5;													// Minima distancia zoom
+		/// <summary>
+		/// <para>Camara.</para>
+		/// </summary>
+		public Camera camara;																// Camara
 		#endregion
 
 		#region Variables Privadas Horizontal
@@ -160,6 +179,37 @@ namespace MoonAntonio
 		private int ultimoTouchVert = 0;                                                    // Contiene la info del ultimo touch
 		#endregion
 
+		#region Variables Privadas Zoom
+		/// <summary>
+		/// <para>Velocidad minima del pinch.</para>
+		/// </summary>
+		private float velMinPinch = 5.0f;													// Velocidad minima del pinch
+		/// <summary>
+		/// <para>Distancia minima.</para>
+		/// </summary>
+		private float minDistancia = 5.0f;													// Distancia minima
+		/// <summary>
+		/// <para>Delta del touch.</para>
+		/// </summary>
+		private float touchDelta = 0.0f;													// Delta del touch
+		/// <summary>
+		/// <para>Distancia previa del zoom.</para>
+		/// </summary>
+		private Vector2 distanciaPrevia;													// Distancia previa del zoom
+		/// <summary>
+		/// <para>Distancia actual del zoom.</para>
+		/// </summary>
+		private Vector2 distanciaActual;													// Distancia actual del zoom
+		/// <summary>
+		/// <para>Velocidad del touch 0.</para>
+		/// </summary>
+		private float velTouch0;															// Velocidad del touch 0
+		/// <summary>
+		/// <para>Velocidad del touch 1.</para>
+		/// </summary>
+		private float velTouch1;															// Velocidad del touch 1
+		#endregion
+
 		#region Inicializadores
 		/// <summary>
 		/// <para>Inicializador de <see cref="CamaraController"/>.</para>
@@ -172,6 +222,13 @@ namespace MoonAntonio
 				rotOriginal = this.transform.localRotation;
 				rotX = this.transform.localEulerAngles.x;
 				rotY = this.transform.localEulerAngles.y;
+			}
+			#endregion
+
+			#region Zoom
+			if (isZoom)
+			{
+				camara.GetComponent<Camera>().orthographic = false;
 			}
 			#endregion
 		}
@@ -293,6 +350,44 @@ namespace MoonAntonio
 				{
 					ultimoTouchVert = Input.touchCount;
 					velocidadVertical = 0;
+				}
+			}
+			#endregion
+
+			#region Zoom
+			if (isZoom)
+			{
+				// Esta parte del script es para dispositivos tactiles.
+				if (Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved)
+				{
+					distanciaActual = Input.GetTouch(0).position - Input.GetTouch(1).position;
+					distanciaPrevia = ((Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition) - (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition));
+					touchDelta = distanciaActual.magnitude - distanciaPrevia.magnitude;
+					velTouch0 = Input.GetTouch(0).deltaPosition.magnitude / Input.GetTouch(0).deltaTime;
+					velTouch1 = Input.GetTouch(1).deltaPosition.magnitude / Input.GetTouch(1).deltaTime;
+
+					if ((touchDelta + minDistancia <= 5) && (velTouch0 > velMinPinch) && (velTouch1 > velMinPinch))
+					{
+						camara.GetComponent<Camera>().fieldOfView = Mathf.Clamp(camara.GetComponent<Camera>().fieldOfView + (1 * velZoom), minDistanciaZoom, maxDistanciaZoom);
+					}
+
+					if ((touchDelta + minDistancia > 5) && (velTouch0 > velMinPinch) && (velTouch1 > velMinPinch))
+					{
+						camara.GetComponent<Camera>().fieldOfView = Mathf.Clamp(camara.GetComponent<Camera>().fieldOfView - (1 * velZoom), minDistanciaZoom, maxDistanciaZoom);
+					}
+				}
+
+				// Esta parte es para PC.
+				// El efecto de zoom se logra con la rueda del mouse.
+				if (Input.GetAxis("Mouse ScrollWheel") < 0)
+				{
+					camara.GetComponent<Camera>().fieldOfView = Mathf.Clamp(camara.GetComponent<Camera>().fieldOfView + (1 * velZoom), minDistanciaZoom, maxDistanciaZoom);
+
+				}
+				else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+				{
+					camara.GetComponent<Camera>().fieldOfView = Mathf.Clamp(camara.GetComponent<Camera>().fieldOfView - (1 * velZoom), minDistanciaZoom, maxDistanciaZoom);
+
 				}
 			}
 			#endregion

@@ -291,7 +291,12 @@ namespace MoonAntonio
 			#endregion
 
 			#region Global
-
+			if (isGlobal)
+			{
+				rotOriginalGlobal = transform.localRotation;
+				rotXGlobal = transform.localEulerAngles.x;
+				rotYGlobal = transform.localEulerAngles.y;
+			}
 			#endregion
 		}
 		#endregion
@@ -451,6 +456,43 @@ namespace MoonAntonio
 					camara.GetComponent<Camera>().fieldOfView = Mathf.Clamp(camara.GetComponent<Camera>().fieldOfView - (1 * velZoom), minDistanciaZoom, maxDistanciaZoom);
 
 				}
+			}
+			#endregion
+
+			#region Global
+			if (isGlobal)
+			{
+				if (Input.GetMouseButton(0)) tempoGlobal++;
+
+				// Registrar el axis
+				if (Input.GetMouseButton(0) && tempoGlobal > 3)
+				{
+					// Invertir axis
+					yAxisGlobal = -Input.GetAxis("Mouse Y");
+					velVertGlobal = yAxisGlobal;
+					xAxisGlobal = Input.GetAxis("Mouse X");
+					velHoriGlobal = xAxisGlobal;
+
+				}
+				else
+				{
+					var ix = Time.deltaTime * velLerpGlobal;
+					velVertGlobal = Mathf.Lerp(velVertGlobal, 0, ix);
+					velHoriGlobal = Mathf.Lerp(velHoriGlobal, 0, ix);
+				}
+
+				// Resetear tempo
+				if (Input.GetMouseButtonUp(0))
+				{
+					tempoGlobal = 0;
+				}
+
+				rotacionYActualGlobal += velVertGlobal * -velRotacionGlobal * 0.8f;
+				rotacionYActualGlobal = ClampAngulo(rotacionYActualGlobal, -anguloMaxGlobal, -anguloMinGlobal);
+				Quaternion yQuaternion = Quaternion.AngleAxis(rotacionYActualGlobal, Vector3.left);
+				transform.localRotation = rotOriginalGlobal * yQuaternion;
+
+				transform.Rotate(0.0f, velHoriGlobal * velRotacionGlobal, 0.0f, Space.World);
 			}
 			#endregion
 		}

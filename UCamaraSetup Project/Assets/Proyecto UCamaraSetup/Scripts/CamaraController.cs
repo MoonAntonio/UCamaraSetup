@@ -57,7 +57,8 @@ namespace MoonAntonio
 			#region Autorotacion
 			if (isAutorotacion)
 			{
-
+				// Gira el objeto si el usuario no esta haciendo clic o tocando la pantalla
+				if (!Input.GetMouseButton(0)) transform.Rotate(0.0f, velAutorotacion, 0.0f, Space.World);
 			}
 			#endregion
 		}

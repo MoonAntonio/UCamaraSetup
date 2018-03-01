@@ -122,7 +122,26 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Camara.</para>
 		/// </summary>
-		public Camera camara;																// Camara
+		public Camera camara;                                                               // Camara
+		#endregion
+
+		#region Variables Publicas Global
+		/// <summary>
+		/// <para>Velocidad de rotacion global.</para>
+		/// </summary>
+		public float velRotacionGlobal = 0.0f;												// Velocidad de rotacion global
+		/// <summary>
+		/// <para>Velocidad de desaceleracion global.</para>
+		/// </summary>
+		public float velLerpGlobal = 0.0f;													// Velocidad de desaceleracion global
+		/// <summary>
+		/// <para>Angulo maximo global.</para>
+		/// </summary>
+		public float anguloMaxGlobal = 30.0f;												// Angulo maximo global
+		/// <summary>
+		/// <para>Angulo minimo global.</para>
+		/// </summary>
+		public float anguloMinGlobal = -30.0f;												// Angulo minimo global
 		#endregion
 
 		#region Variables Privadas Horizontal
@@ -207,7 +226,46 @@ namespace MoonAntonio
 		/// <summary>
 		/// <para>Velocidad del touch 1.</para>
 		/// </summary>
-		private float velTouch1;															// Velocidad del touch 1
+		private float velTouch1;                                                            // Velocidad del touch 1
+		#endregion
+
+		#region Variables Privadas Global
+		/// <summary>
+		/// <para>Temporizador para comprobar si el toque es una rotacion valida.</para>
+		/// </summary>
+		private float tempoGlobal = 0.0f;													// Temporizador para comprobar si el toque es una rotacion valida
+		/// <summary>
+		/// <para>Contiene info del axis y.</para>
+		/// </summary>
+		private float yAxisGlobal = 0.0f;													// Contiene info del axis y
+		/// <summary>
+		/// <para>Obtiene info del axis x.</para>
+		/// </summary>
+		private float xAxisGlobal = 0.0f;													// Obtiene info del axis x
+		/// <summary>
+		/// <para>Velocidad por frame horizontal.</para>
+		/// </summary>
+		private float velHoriGlobal = 0.0f;													// Velocidad por frame horizontal
+		/// <summary>
+		/// <para>Velocidad por frame vertical.</para>
+		/// </summary>
+		private float velVertGlobal = 0.0f;													// Velocidad por frame vertical
+		/// <summary>
+		/// <para>Rotacion actual de Y.</para>
+		/// </summary>
+		private float rotacionYActualGlobal = 0.0f;											// Rotacion actual de Y
+		/// <summary>
+		/// <para>Quaternion original.</para>
+		/// </summary>
+		private Quaternion rotOriginalGlobal;												// Quaternion original
+		/// <summary>
+		/// <para>Rotacion X original.</para>
+		/// </summary>
+		private float rotXGlobal = 0.0f;													// Rotacion X original
+		/// <summary>
+		/// <para>Rotacion Y original.</para>
+		/// </summary>
+		private float rotYGlobal = 0.0f;													// Rotacion Y original
 		#endregion
 
 		#region Inicializadores
@@ -230,6 +288,10 @@ namespace MoonAntonio
 			{
 				camara.GetComponent<Camera>().orthographic = false;
 			}
+			#endregion
+
+			#region Global
+
 			#endregion
 		}
 		#endregion

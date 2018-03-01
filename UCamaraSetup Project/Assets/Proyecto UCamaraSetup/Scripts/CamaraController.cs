@@ -11,7 +11,6 @@
 using UnityEngine;
 #endregion
 
-
 namespace MoonAntonio
 {
 	/// <summary>
@@ -20,11 +19,48 @@ namespace MoonAntonio
 	public class CamaraController : MonoBehaviour
 	{
 		#region Variables Activacion
-		public bool horizontal = false;
-		public bool vertical = false;
-		public bool verticalGlobal = false;
-		public bool zoom = false;
-		public bool autorotacion = false;
+		/// <summary>
+		/// <para>Determina si se podra rotar horizontalmente.</para>
+		/// </summary>
+		public bool isHorizontal = false;													// Determina si se podra rotar horizontalmente
+		/// <summary>
+		/// <para>Determina si se podra rotar verticalmente.</para>
+		/// </summary>
+		public bool isVertical = false;														// Determina si se podra rotar verticalmente
+		/// <summary>
+		/// <para>Determina si se podra rotar globalmente.</para>
+		/// </summary>
+		public bool isGlobal = false;														// Determina si se podra rotar globalmente
+		/// <summary>
+		/// <para>Determina si se puede hacer zoom.</para>
+		/// </summary>
+		public bool isZoom = false;															// Determina si se puede hacer zoom
+		/// <summary>
+		/// <para>Determina si tendra autorotacion.</para>
+		/// </summary>
+		public bool isAutorotacion = false;													// Determina si tendra autorotacion
+		#endregion
+
+		#region Variables Autorotacion
+		/// <summary>
+		/// <para>Velocidad de rotacion de la camara.</para>
+		/// </summary>
+		public float velAutorotacion = 3f;													// Velocidad de rotacion de la camara
+		#endregion
+
+		#region Actualizadores
+		/// <summary>
+		/// <para>Actualizador de <see cref="CamaraController"/>.</para>
+		/// </summary>
+		protected void Update()// Actualizador de CamaraController
+		{
+			#region Autorotacion
+			if (isAutorotacion)
+			{
+
+			}
+			#endregion
+		}
 		#endregion
 
 	}

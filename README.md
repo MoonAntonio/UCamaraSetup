@@ -7,7 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/MoonAntonio/UCamaraSetup.svg)](https://github.com/MoonAntonio/UCamaraSetup/stargazers)
 
 # UCamaraSetup
-Setup de camara para el engine Unity3D.
+Setup de camara tripode.
 
 <p align="center">
 <img src="https://github.com/MoonAntonio/UCamaraSetup/blob/master/res/prev.gif">

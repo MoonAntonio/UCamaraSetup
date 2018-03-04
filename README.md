@@ -22,6 +22,6 @@ Setup de camara tripode.
 > * Zoom
 > * Rotacion Vertical/Horizontal
 > * Global
-> * Editor Inspector
+> * Inspector
 > * Mouse o Tactil
 > * Plug and Play

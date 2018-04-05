@@ -25,3 +25,12 @@ Setup de camara tripode.
 > * Inspector
 > * Mouse o Tactil
 > * Plug and Play
+
+---
+## ¿Como usar?
+
+* Descargar [Unity3D Engine][1]
+* Abrir el proyecto en la escena Alexandria
+* Ejecutar la escena
+
+[1]: https://unity3d.com
